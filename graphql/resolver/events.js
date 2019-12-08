@@ -1,6 +1,6 @@
 
 const Event = require('../../models/event');
-
+const User = require('../../models/user'); 
 const { transformEvent } = require('./merge');
 
 module.exports = { //Resolvers
@@ -16,7 +16,8 @@ module.exports = { //Resolvers
             throw err;
         }
     },
-    createEvent: async args => {
+    createEvent: async (args, req) => {
+        if(!req.isAuth) throw new Error('Unauthenticated!');
         const event = new Event({
             title: args.eventInput.title,
             description: args.eventInput.description,
@@ -24,7 +25,7 @@ module.exports = { //Resolvers
             price: +args.eventInput.price,
             date: new Date(args.eventInput.date),
             // Hardcoded for now. 
-            creator: '5de890235b88af162450f96a'
+            creator: req.userId
         });
         let createdEvent;
         // We need to return the promise here to ensure that graphql waits for the async operation.
@@ -32,7 +33,7 @@ module.exports = { //Resolvers
             const result = await event.save();
             createdEvent =  transformEvent(result);
 
-            const creator = await User.findById('5de890235b88af162450f96a');
+            const creator = await User.findById(req.userId);
             if(!creator) {
                 throw new Error('User not found.');
             }

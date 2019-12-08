@@ -3,11 +3,11 @@ const bodyParser = require('body-parser');
 
 const graphQlHttp = require('express-graphql');
 
-
 const mongoose = require("mongoose");
 
 const graphQlSchema = require('./graphql/schema/index');
 const graphQlResolvers = require('./graphql/resolver/index.js')
+const isAuth = require('./middleware/is-auth');
 
 const app = express();
 
@@ -15,6 +15,9 @@ const app = express();
 // const events = [];
 
 app.use(bodyParser.json());
+
+app.use(isAuth);
+
 
 // With graphQL there is only one point where all requests are sent.  
 // The exclamation at the end of [String!]! is to ensure that a null value or a list of null values ([null, null]) are not allowed
