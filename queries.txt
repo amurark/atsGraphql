@@ -1,0 +1,177 @@
+# mutation {
+#   createUser(userInput: {
+#     email: "qwerty2@gmail.com",
+#     password: "abdefgh"
+#   }) {
+#     email
+#     password
+#   }
+# }
+
+
+# mutation {
+#   createEvent(eventInput: {
+#     title: "Event3 for user 2",
+#     description: "Summary",
+#     price: 34.63
+#     date: "2019-12-05T02:54:04.311Z"
+#   }) {
+#     title
+#     description
+#   }
+# }
+
+# query {
+#   events {
+#     title
+#     creator {
+#       email
+#       createdEvents {
+#         title
+#         creator {
+#           email
+#         }
+#       }
+#     }
+#   }
+# }
+
+# mutation {
+#   createEvent(
+#     eventInput :{
+#       title: "Event 4!",
+#       description: "This is another event.",
+#       price: 25.9,
+#       date: "2019-12-05T02:54:04.311Z"
+#     }
+#   ) {
+#     title
+#     creator {
+#       email
+#     }
+#   }
+# }
+
+# query {
+#   events {
+#     title
+#     date
+#     creator {
+#       email
+#     }
+#   }
+# }
+
+# mutation {
+#   bookEvent(eventId: "5dec1e72aa1034355eea43ec") {
+#     _id
+#     createdAt
+#     user {
+#       email
+#     }
+#   }
+# }
+
+
+# query {
+#   bookings {
+#     _id
+#     createdAt
+#     event {
+#       title
+#       creator {
+#         email
+#       }
+#     }
+#   }
+# }
+
+
+# mutation {
+#   cancelBooking(bookingId: "5dec1fccaa1034355eea43ed") {
+#     title
+#     creator {
+#       email
+#     }
+#   }
+# }
+
+
+# mutation {
+#   createEvent(eventInput:{
+#     title: "After refracting",
+#     description: "random",
+#     price: 1.1
+#     date: "2019-12-07T21:47:57.642Z"
+#   }) {
+#     _id
+#     creator {
+#       email
+#     }
+#   }
+# }
+
+# 5dec1e72aa1034355eea43ec
+
+# query {
+#   events {
+#     title 
+#     creator {
+#       email
+#       createdEvents {
+#         _id
+#       }
+#     }
+#   }
+# }
+
+
+# query {
+#   events {
+#     date
+#   }
+# }
+
+
+# mutation {
+#   bookEvent(eventId:"5dec1e72aa1034355eea43ec") {
+#     _id
+#     updatedAt
+#   }
+# }
+
+# 5dec22d04ac9423591e84a0b
+
+# query {
+#   bookings {
+#     event {
+#       title
+#       date
+#     }
+#     updatedAt
+#   }
+# }
+
+# query {
+#   events {
+#     _id
+#     title
+#     date
+#     creator {
+#       email
+#       createdEvents {
+#         _id
+#         title
+#       }
+#     }
+#   }
+# }
+
+
+query {
+  login(email:"qwerty2@gmail.com" password: "abdefgh") {
+    userId
+    token
+    tokenExpiration
+  }
+}
